@@ -8,23 +8,32 @@ package com.cervantesvirtual.MARCauthority.GUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
  *
  * @author Impact
  */
-public class AuthorsViewController implements Initializable
+public class AuthorsViewController
 {
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb)
+    @FXML
+    Label tablaCandidate;
+    
+    private MARCAuthorityGUI mainApp = null;
+    
+    
+    public void setCandidateContent(String content)
     {
-        // TODO
-    }    
+        tablaCandidate.setText(content);
+    }
+            
+    public void setMainApp(MARCAuthorityGUI main)
+    {
+        mainApp = main;
+    }
     
 }

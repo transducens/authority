@@ -20,6 +20,23 @@ public class AuthorityField extends MARCDataField {
     String title; // title or location
     Period period; // the dates with their estimated uncertainty.
 
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public Period getPeriod()
+    {
+        return period;
+    }
+    
+    
+    
     /**
      * Identify rotations of the name
      * @param name
