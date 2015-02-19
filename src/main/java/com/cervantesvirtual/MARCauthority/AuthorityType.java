@@ -6,5 +6,5 @@ package com.cervantesvirtual.MARCauthority;
  * @author RCC
  */
 public enum AuthorityType {
-    ESTABLISHED, VARIANT, RELATED;
+    ESTABLISHED, VARIANT, RELATED, ERROR;
 }

@@ -187,6 +187,7 @@ public class MARCAuthorityGUI extends Application
             MARCDataField marcField = new MARCDataField(tag, field.getValue());
             candidateField = new AuthorityField(tag, marcField);                                  
            
+            authorsViewController.setCandidateContent(candidateField);
         }
         else
         {
