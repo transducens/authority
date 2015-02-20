@@ -85,10 +85,47 @@ public class MARCAuthorityBuilder {
             String id = Integer.toString(acollection.size());
             arecord = new AuthorityRecord(afield, id);
             acollection.add(arecord);  
-            
+            acollection.index.add(afield, arecord);
         }
     }
+    
+    //Add a new authority record
+    public void addAuthorityRecord(AuthorityField afield)
+    {
+        String id = Integer.toString(acollection.size());
+        AuthorityRecord arecord = new AuthorityRecord(afield, id);
+        acollection.add(arecord);
+        acollection.index.add(afield, arecord);
+    }
+    
+    public void addFieldToRecord(AuthorityField afield, AuthorityType atype, AuthorityRecord arecord)
+    {
+        acollection.addFieldToRecord(afield, atype, arecord);
+    }
 
+    public AuthorityRecord selectPrincipal(AuthorityField afield) throws IOException
+    {
+        List<AuthorityRecord> candidates = findSimilarRecords(afield);
+        AuthorityRecord arecord;
+        if (candidates.size() > 0) 
+        {
+            List<AuthorityRecord> compatible = filterCompatible(candidates, afield);
+            if (compatible.size() == 1) 
+            {
+                arecord = compatible.get(0);               
+            } else 
+            {
+                arecord = select(afield, candidates);                
+            }
+            
+            return arecord;
+            
+        } else 
+        {   //no candidates, new record  
+            return null;
+        }
+    }
+    
     /**
      * Find records with names with under 1 typo per word
      * @param afield A creator as an AuthorityField
@@ -175,5 +212,10 @@ public class MARCAuthorityBuilder {
      */
     public AuthorityCollection toAuthorityCollection() {
         return acollection;
+    }
+    
+    public boolean collectionContains(AuthorityField afield)
+    {
+        return acollection.contains(afield);
     }
 }

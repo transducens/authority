@@ -80,7 +80,7 @@ public class AuthorityCollection extends Collection {
         add(arecord);
         for (Field field : arecord.getFields()) 
         {
-            //Arreglo esto?
+            
             if (field instanceof AuthorityField)
             {
                 AuthorityField afield = (AuthorityField) field;

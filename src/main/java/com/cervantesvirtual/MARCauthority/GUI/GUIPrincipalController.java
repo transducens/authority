@@ -59,5 +59,11 @@ public class GUIPrincipalController
         mainApp.sigField();
     }
     
+    @FXML
+    private void buttonSave()
+    {
+        mainApp.saveAuthority();
+    }
+    
     
 }

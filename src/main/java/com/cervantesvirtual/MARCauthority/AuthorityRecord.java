@@ -176,6 +176,10 @@ public class AuthorityRecord extends Record {
             case RELATED:
                 afield.setAuthorityType(AuthorityType.RELATED);
                 addField(afield);
+                break;
+            case ERROR:
+                afield.setAuthorityType(AuthorityType.ERROR);
+                addField(afield);
         }
     }
 

@@ -19,6 +19,7 @@ public class AuthorityField extends MARCDataField {
     CyclicArray<String> variants; // normalized variants of name
     String title; // title or location
     Period period; // the dates with their estimated uncertainty.
+    String originalDate; //the original date value
 
     public String getName()
     {
@@ -30,9 +31,9 @@ public class AuthorityField extends MARCDataField {
         return title;
     }
 
-    public Period getPeriod()
+    public String getOriginalDate()
     {
-        return period;
+        return originalDate;
     }
     
     
@@ -69,6 +70,7 @@ public class AuthorityField extends MARCDataField {
             } else if (code == 'c') {
                 title = Normalizer.normalize(subfield.getValue());
             } else if (code == 'd') {
+                originalDate = subfield.getValue();
                 period = DateParser.parse(subfield.getValue());
                 if (period == null) {  // if date was unparsable
                     period = new Period();
@@ -217,6 +219,8 @@ public class AuthorityField extends MARCDataField {
                 return AuthorityType.VARIANT;
             case 5:
                 return AuthorityType.RELATED;
+            case 9:
+                return AuthorityType.ERROR;
             default:
                 return null;
         }
@@ -236,6 +240,9 @@ public class AuthorityField extends MARCDataField {
                 break;
             case RELATED:
                 tag = "5" + tag.substring(1);
+                break;
+            case ERROR:
+                tag = "9" + tag.substring(1);
             default:
                 break;
         }

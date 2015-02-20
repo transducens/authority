@@ -6,6 +6,7 @@ package com.cervantesvirtual.MARCauthority.GUI;
  * and open the template in the editor.
  */
 import com.cervantesvirtual.MARCauthority.AuthorityField;
+import com.cervantesvirtual.MARCauthority.AuthorityRecord;
 import com.cervantesvirtual.MARCauthority.AuthorityType;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +27,12 @@ import javafx.scene.control.ToggleGroup;
  */
 public class AuthorsViewController
 {
-
+    @FXML
+    Label establishedName;
+    @FXML
+    Label establishedTitle;
+    @FXML
+    Label establishedPeriod;
     @FXML
     Label candidateName;
     @FXML
@@ -50,7 +56,16 @@ public class AuthorsViewController
     {
         candidateName.setText(candidate.getName());
         candidateTitle.setText(candidate.getTitle());
-        candidatePeriod.setText(candidate.getPeriod().toString());
+        candidatePeriod.setText(candidate.getOriginalDate());
+    }
+    
+     public void setEstablishedContent(AuthorityRecord estrablished)
+    {
+        //TODO sacar campos
+        
+        //candidateName.setText(candidate.getName());
+        //candidateTitle.setText(candidate.getTitle());
+        //candidatePeriod.setText(candidate.getOriginalDate());
     }
 
     public void setMainApp(MARCAuthorityGUI main)

@@ -84,7 +84,7 @@ public enum MetadataFormat {
 	public String getRecordTag() {
 		switch (this) {
 		case MARC:
-			return "marc:record";
+			return "marc:record"; 
 		case DC:
 			return "rdf:Description";
 		case EAD:
