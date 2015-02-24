@@ -129,6 +129,7 @@
                               </ToggleButton>
                               <ToggleButton fx:id="buttonVariant" mnemonicParsing="false" selected="true" text="Variant" toggleGroup="$candidate" />
                               <ToggleButton fx:id="buttonError" mnemonicParsing="false" text="Error" toggleGroup="$candidate" />
+                              <ToggleButton fx:id="buttonNew" mnemonicParsing="false" text="New" toggleGroup="$candidate" />
                            </children>
                            <VBox.margin>
                               <Insets right="20.0" top="10.0" />

@@ -10,7 +10,6 @@ import com.cervantesvirtual.MARCauthority.AuthorityField;
 import com.cervantesvirtual.MARCauthority.AuthorityRecord;
 import com.cervantesvirtual.MARCauthority.AuthorityType;
 import com.cervantesvirtual.MARCauthority.MARCAuthorityBuilder;
-import com.cervantesvirtual.io.Backup;
 import com.cervantesvirtual.metadata.Collection;
 import com.cervantesvirtual.metadata.Field;
 import com.cervantesvirtual.metadata.MARCDataField;
@@ -18,7 +17,7 @@ import com.cervantesvirtual.metadata.MetadataFormat;
 import com.cervantesvirtual.metadata.Record;
 import com.cervantesvirtual.xml.DocumentParser;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +33,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -188,11 +186,20 @@ public class MARCAuthorityGUI extends Application
         if(authorRecord!=null)
         {
             //insertar como variante o error, o saltar si no seleccionado             
-            AuthorityType type = authorsViewController.getToggleSelected();
+            Object type = authorsViewController.getSelectedToggle();
             if(type != null)
             {
-                builder.addFieldToRecord(candidateField, authorsViewController.getToggleSelected(), authorRecord);
-                authorRecord = null;
+                if(type instanceof AuthorityType)
+                {
+                    AuthorityType atype = (AuthorityType) type;
+                    builder.addFieldToRecord(candidateField, atype, authorRecord);
+                    authorRecord = null;
+                }
+                else if( ((String)type).equals("New") )
+                {
+                    builder.addAuthorityRecord(candidateField, "2", "");
+                    authorRecord = null;
+                }
             }
         }
         
@@ -214,7 +221,8 @@ public class MARCAuthorityGUI extends Application
                 }
                 if(authorRecord != null)
                 {
-                    authorsViewController.setCandidateContent(candidateField);                    
+                    authorsViewController.setCandidateContent(candidateField);
+                    authorsViewController.setEstablishedContent(authorRecord);
                 }
                 else
                 {
@@ -260,17 +268,7 @@ public class MARCAuthorityGUI extends Application
             })));
 
             fileIterator = listFiles.listIterator();
-            /*
-             for (File file : dir.listFiles()) 
-             {
-             if (file.getName().endsWith(".xml")) {
-             Collection bibliographic = new Collection(
-             MetadataFormat.MARC,
-             DocumentParser.parse(file));
-             builder.addBibliographicCollection(bibliographic);
-             }
-             }
-             */
+            
         }
     }
 
@@ -283,6 +281,24 @@ public class MARCAuthorityGUI extends Application
             if (authority != null && authoOut != null)
             {
                 authority.writeXML(authoOut);
+            }
+        }
+    }
+    
+    public void openAuth(File file)
+    {
+        if (file.isFile())
+        {
+            authority = null;
+            builder = null;
+            
+            try
+            {
+                builder = new MARCAuthorityBuilder(file.getAbsolutePath());
+                
+            } catch (Exception ex)
+            {
+                System.err.println("Error al abrir fichero "+ex.toString());
             }
         }
     }

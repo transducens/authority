@@ -33,11 +33,15 @@ public class AuthorityCollection extends Collection {
      * Constructor from input file
      * @param filename The containing file
      */
-    public AuthorityCollection(String filename) throws FileNotFoundException {
+    public AuthorityCollection(String filename) throws FileNotFoundException, Exception 
+    {
+        //TODO convertir en Authority Records antes de insertar en la Collection
         super(MetadataFormat.MARC, new File(filename));
         index = new MultiHashMap<AuthorityField, AuthorityRecord>();
-        for (Record record : getRecords()) {
-            AuthorityRecord arecord = new AuthorityRecord(record);
+        for (Record record : getRecords()) 
+        {   
+            //TODO esto no va
+            AuthorityRecord arecord = (AuthorityRecord) record;
             for (AuthorityField afield : arecord.getAuthorityFields()) {
                 index.add(afield, arecord);
             }

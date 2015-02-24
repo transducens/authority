@@ -15,6 +15,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openAuth" text="Open" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#setAuthDir" text="Set Authority Dir" />
                         <MenuItem mnemonicParsing="false" onAction="#buttonSave" text="Save" />
                         <SeparatorMenuItem mnemonicParsing="false" />

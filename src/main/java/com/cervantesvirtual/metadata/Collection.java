@@ -1,5 +1,6 @@
 package com.cervantesvirtual.metadata;
 
+import com.cervantesvirtual.MARCauthority.AuthorityRecord;
 import com.cervantesvirtual.io.CSVReader;
 import com.cervantesvirtual.io.Messages;
 import com.cervantesvirtual.xml.DocumentParser;
@@ -123,9 +124,20 @@ public class Collection {
             try {
                 String tag = format.getRecordTag();
                 NodeList nodes = doc.getElementsByTagName(tag);
-                for (int n = 0; n < nodes.getLength(); ++n) {
+                for (int n = 0; n < nodes.getLength(); ++n) 
+                {
+                    
                     Node node = nodes.item(n);
-                    records.add(new Record(format, node));
+                    Record record = new Record(format, node);
+                    
+                    try
+                    {
+                        //TODO esto da error
+                        records.add(new AuthorityRecord(record));
+                    } catch (Exception ex)
+                    {
+                        System.err.println("Error al insertar registro en collection "+ex.toString());
+                    }
                 }
             } catch (MetadataException e) {
                 System.err.println("Could not read " + doc.getDocumentURI());
@@ -366,6 +378,7 @@ public class Collection {
             }
             writer.println("</" + tag + ">");
             writer.flush();
+            writer.close();
         } catch (FileNotFoundException | UnsupportedEncodingException ex)
         {
             System.err.println(ex.toString());

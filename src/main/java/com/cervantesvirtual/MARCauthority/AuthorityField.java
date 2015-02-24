@@ -97,7 +97,7 @@ public class AuthorityField extends MARCDataField {
     public AuthorityField(String tag, MARCDataField field) {
         super(tag, field.getInd1(), field.getInd2(), field.getSubfields());
         parse();
-    }
+    }        
 
     /**
      * Build a simple creator instance which has only its name defined.

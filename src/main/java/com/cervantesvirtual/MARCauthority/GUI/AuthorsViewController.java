@@ -47,7 +47,8 @@ public class AuthorsViewController
     ToggleButton buttonEstablished;
     @FXML
     ToggleButton buttonVariant;
-
+    @FXML
+    ToggleButton buttonNew;
     
     
     private MARCAuthorityGUI mainApp = null;
@@ -59,13 +60,14 @@ public class AuthorsViewController
         candidatePeriod.setText(candidate.getOriginalDate());
     }
     
-     public void setEstablishedContent(AuthorityRecord estrablished)
-    {
-        //TODO sacar campos
+     public void setEstablishedContent(AuthorityRecord established)
+    {                
+        AuthorityField autorized = established.authorized();
         
-        //candidateName.setText(candidate.getName());
-        //candidateTitle.setText(candidate.getTitle());
-        //candidatePeriod.setText(candidate.getOriginalDate());
+        establishedName.setText(autorized.getName());
+        establishedTitle.setText(autorized.getTitle());
+        establishedPeriod.setText(autorized.getOriginalDate());
+        
     }
 
     public void setMainApp(MARCAuthorityGUI main)
@@ -80,17 +82,22 @@ public class AuthorsViewController
         candidateTitle.setText("");
         candidatePeriod.setText("");
         
+        establishedName.setText("");
+        establishedTitle.setText("");
+        establishedPeriod.setText("");
+        
         buttonEstablished.setUserData(AuthorityType.ESTABLISHED);
         buttonVariant.setUserData(AuthorityType.VARIANT);
-        buttonError.setUserData(AuthorityType.ERROR);       
+        buttonError.setUserData(AuthorityType.ERROR);  
+        buttonNew.setUserData("New");
         
     }
     
-    public AuthorityType getToggleSelected()
+    public Object getSelectedToggle()
     {
         if (candidate.getSelectedToggle() != null)
         {
-            return (AuthorityType) candidate.getSelectedToggle().getUserData();
+            return candidate.getSelectedToggle().getUserData();
         }
         else
         {

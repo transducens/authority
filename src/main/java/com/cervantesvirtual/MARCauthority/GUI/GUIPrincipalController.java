@@ -16,6 +16,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 /**
  * FXML Controller class
@@ -65,5 +67,19 @@ public class GUIPrincipalController
         mainApp.saveAuthority();
     }
     
+    @FXML
+    private void openAuth()
+    {
+        final FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Authority File");
+        fileChooser.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
+        final File selectedFile = fileChooser.showOpenDialog(mainApp.getRootStage());
+        
+        if (selectedFile != null)
+        {
+            mainApp.openAuth(selectedFile);
+        }            
+        
+    }
     
 }

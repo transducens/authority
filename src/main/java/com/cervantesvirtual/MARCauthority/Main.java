@@ -19,7 +19,7 @@ import java.io.IOException;
  */
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
+    public static void main(String[] args) throws FileNotFoundException, IOException, Exception {
         if (args.length < 1) {
             System.err.println("Usage: MARCAuthorityBuilder"
                     + "authority_file bibliographic_dir_or_files");

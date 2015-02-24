@@ -29,14 +29,47 @@ public class AuthorityRecord extends Record {
         addField(new MARCControlField("001", id));
         addField(field);
     }
+    
+    /**
+     * Constructor from a single field
+     */
+    public AuthorityRecord(AuthorityField field, String ind1, String ind2, String id) {
+        super(MetadataFormat.MARC, id);
+        authorized = field;
+        addField(new MARCControlField("001" + ind1 + ind2, id));
+        addField(field);
+    }
 
     /**
      * Constructor from a MARC (authority) record
      * @param record 
      */
-    public AuthorityRecord(Record record) {
+    public AuthorityRecord(Record record) throws Exception 
+    {
         super(MetadataFormat.MARC, record.getId());
-        for (Field field : record.getFields()) {
+        for (Field field : record.getFields()) 
+        {   
+            if (field.getType() == FieldType.MARC_CONTROLFIELD)
+            {
+                addField(field);
+            }
+            else if(field.getType() == FieldType.MARC_DATAFIELD)
+            {
+                MARCDataField datafield = (MARCDataField) field;
+                String tag = datafield.getTag();
+                AuthorityField afield = new AuthorityField(tag, datafield);
+                addField(afield);
+                if(tag.matches("100"))
+                {
+                    authorized = afield;
+                }
+            }
+            else
+            {
+                throw new Exception("Unexpected Filed Type");
+            }
+            
+            /*
             addField(field);
             if (authorized == null
                     && field.getType() == FieldType.MARC_DATAFIELD) {
@@ -46,6 +79,7 @@ public class AuthorityRecord extends Record {
                     authorized = new AuthorityField("100", datafield);
                 }
             }
+            */
         }
     }
 

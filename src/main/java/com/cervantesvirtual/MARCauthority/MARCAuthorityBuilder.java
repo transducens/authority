@@ -33,7 +33,7 @@ public class MARCAuthorityBuilder {
      * @param filename 
      * @throws java.io.FileNotFoundException 
      */
-    public MARCAuthorityBuilder(String filename) throws FileNotFoundException {
+    public MARCAuthorityBuilder(String filename) throws FileNotFoundException, Exception {
         acollection = new AuthorityCollection(filename);
     }
 
@@ -76,7 +76,7 @@ public class MARCAuthorityBuilder {
                 arecord = compatible.get(0);
                 acollection.addFieldToRecord(afield, AuthorityType.VARIANT, arecord);
             } else {
-                arecord = select(afield, candidates);
+                arecord = selectMostSimilar(afield, candidates);
                 if (arecord != null) {
                     acollection.addFieldToRecord(afield, AuthorityType.VARIANT, arecord);
                 }
@@ -98,6 +98,15 @@ public class MARCAuthorityBuilder {
         acollection.index.add(afield, arecord);
     }
     
+    //Add a new authority record with inds
+    public void addAuthorityRecord(AuthorityField afield, String ind1, String ind2)
+    {
+        String id = Integer.toString(acollection.size());
+        AuthorityRecord arecord = new AuthorityRecord(afield, ind1, ind2, id);
+        acollection.add(arecord);
+        acollection.index.add(afield, arecord);
+    }
+    
     public void addFieldToRecord(AuthorityField afield, AuthorityType atype, AuthorityRecord arecord)
     {
         acollection.addFieldToRecord(afield, atype, arecord);
@@ -115,7 +124,7 @@ public class MARCAuthorityBuilder {
                 arecord = compatible.get(0);               
             } else 
             {
-                arecord = select(afield, candidates);                
+                arecord = selectMostSimilar(afield, candidates);                
             }
             
             return arecord;
@@ -184,6 +193,26 @@ public class MARCAuthorityBuilder {
                 throw new IOException("Invalid input interpreted as stop and save.");
             }
         }
+        return selection;
+    }
+    
+    private AuthorityRecord selectMostSimilar(AuthorityField afield, List<AuthorityRecord> candidates)
+            throws IOException {
+        
+        AuthorityRecord selection = candidates.get(0);
+        double maxSimilarity = afield.similarity(selection.authorized());
+        
+        for (AuthorityRecord arecord : candidates) 
+        {
+            double similarity = afield.similarity(arecord.authorized());
+            
+            if(similarity > maxSimilarity)
+            {
+                maxSimilarity = similarity;
+                selection = arecord;
+            }
+        }
+        
         return selection;
     }
 
