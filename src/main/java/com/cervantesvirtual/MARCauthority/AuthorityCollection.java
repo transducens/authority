@@ -96,6 +96,20 @@ public class AuthorityCollection extends Collection {
         index.add(afield, arecord);
         arecord.addAuthorityField(afield, type);
     }
+    
+    /**
+     * Add the creator stored as an AuthorityField with the AuthorityFiledType 
+     * to the adequate AuthorityRecord.
+     * @param afield An AuthorityField
+     * @param type The AuthorityType
+     * @param authoType the new type of the authorized field if type is ESTABLISHED
+     * @param arecord The container AuthorityRecord
+     */
+    protected void addFieldToRecord(AuthorityField afield,
+            AuthorityType type, AuthorityType authoType, AuthorityRecord arecord) {
+        index.add(afield, arecord);
+        arecord.addAuthorityField(afield, type, authoType);
+    }
 
     /**
      * Add a new record to the collection (and index the fields in the record)

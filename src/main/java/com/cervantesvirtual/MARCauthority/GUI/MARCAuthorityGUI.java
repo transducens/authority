@@ -17,15 +17,12 @@ import com.cervantesvirtual.metadata.MetadataFormat;
 import com.cervantesvirtual.metadata.Record;
 import com.cervantesvirtual.xml.DocumentParser;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -195,8 +192,19 @@ public class MARCAuthorityGUI extends Application
                 if(type instanceof AuthorityType)
                 {
                     AuthorityType atype = (AuthorityType) type;
-                    builder.addFieldToRecord(candidateField, atype, authorRecord);
-                    authorRecord = null;
+                    if(atype == AuthorityType.ESTABLISHED)
+                    {
+                        AuthorityType authoType = authorsViewController.getEstablishedToggle();                                               
+                        
+                        builder.addFieldToRecord(candidateField, atype, authoType, authorRecord);
+                        authorRecord = null;
+                        
+                    }
+                    else
+                    {                        
+                        builder.addFieldToRecord(candidateField, atype, authorRecord);
+                        authorRecord = null;
+                    }
                 }
                 else if( ((String)type).equals("New") )
                 {
@@ -312,6 +320,11 @@ public class MARCAuthorityGUI extends Application
     public static void main(String[] args)
     {
         launch(args);
+    }
+
+    public void setToggleDefault()
+    {
+        authorsViewController.setToggleDefault();
     }
 
 }

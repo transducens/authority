@@ -9,13 +9,13 @@
 
 <AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cervantesvirtual.MARCauthority.GUI.AuthorsViewController">
    <children>
-      <SplitPane dividerPositions="0.4882943143812709" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.4866220735785953" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
                <children>
                   <VBox layoutX="5.0" layoutY="5.0" prefHeight="289.0" prefWidth="293.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="126.0" text="Author established:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <Label prefHeight="20.0" prefWidth="281.0" text="Author established:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                         <GridPane layoutX="3.0" layoutY="25.0" prefHeight="178.0" prefWidth="293.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                            <children>
                               <Label text="Title:">
@@ -70,7 +70,7 @@
                <children>
                   <VBox layoutX="5.0" layoutY="5.0" prefHeight="289.0" prefWidth="293.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="126.0" text="Author candidate:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <Label prefHeight="20.0" prefWidth="292.0" text="Author candidate:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                         <GridPane layoutX="3.0" layoutY="25.0" prefHeight="178.0" prefWidth="293.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="55.0" />
@@ -117,27 +117,44 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </GridPane>
-                        <HBox alignment="TOP_RIGHT" spacing="5.0">
+                        <VBox>
                            <children>
-                              <ToggleButton fx:id="buttonEstablished" mnemonicParsing="false" text="Established">
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <ToggleButton fx:id="buttonEstablished" mnemonicParsing="false" text="Established">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="candidate" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="buttonVariant" mnemonicParsing="false" selected="true" text="Variant" toggleGroup="$candidate" />
+                                    <ToggleButton fx:id="buttonError" mnemonicParsing="false" text="Error" toggleGroup="$candidate" />
+                                    <ToggleButton fx:id="buttonNew" mnemonicParsing="false" text="New" toggleGroup="$candidate" />
+                                 </children>
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="candidate" />
-                                 </toggleGroup>
-                              </ToggleButton>
-                              <ToggleButton fx:id="buttonVariant" mnemonicParsing="false" selected="true" text="Variant" toggleGroup="$candidate" />
-                              <ToggleButton fx:id="buttonError" mnemonicParsing="false" text="Error" toggleGroup="$candidate" />
-                              <ToggleButton fx:id="buttonNew" mnemonicParsing="false" text="New" toggleGroup="$candidate" />
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </HBox>
+                              <HBox fx:id="establishedBox" prefHeight="9.0" prefWidth="273.0" spacing="5.0" visible="false">
+                                 <VBox.margin>
+                                    <Insets left="10.0" right="10.0" top="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <ToggleButton fx:id="buttonEstabVariant" mnemonicParsing="false" selected="true" text="Variant">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="typeEstablished" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="buttonEstabError" mnemonicParsing="false" text="Error" toggleGroup="$typeEstablished" />
+                                 </children>
+                              </HBox>
                            </children>
-                           <VBox.margin>
-                              <Insets right="20.0" top="10.0" />
-                           </VBox.margin>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </HBox>
+                        </VBox>
                      </children>
                   </VBox>
                </children>

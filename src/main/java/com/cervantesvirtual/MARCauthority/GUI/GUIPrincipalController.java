@@ -6,14 +6,9 @@
 package com.cervantesvirtual.MARCauthority.GUI;
 
 
-import com.cervantesvirtual.metadata.Collection;
 import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -59,6 +54,7 @@ public class GUIPrincipalController
     private void nextField()
     {
         mainApp.sigField();
+        mainApp.setToggleDefault();
     }
     
     @FXML

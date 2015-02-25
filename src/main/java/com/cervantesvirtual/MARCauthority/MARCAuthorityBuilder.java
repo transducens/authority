@@ -111,6 +111,12 @@ public class MARCAuthorityBuilder {
     {
         acollection.addFieldToRecord(afield, atype, arecord);
     }
+    
+    public void addFieldToRecord(AuthorityField afield, AuthorityType atype, 
+            AuthorityType authoType, AuthorityRecord arecord)
+    {
+        acollection.addFieldToRecord(afield, atype, authoType, arecord);
+    }
 
     public AuthorityRecord selectPrincipal(AuthorityField afield) throws IOException
     {

@@ -216,6 +216,37 @@ public class AuthorityRecord extends Record {
                 addField(afield);
         }
     }
+    
+    /**
+     * Add a creator with the given type 
+     * @param afield a creator as an AuthorityFiled
+     * @param type the type of field (established, variant, related)
+     * @param changeType the new type of the authorized field if type is ESTABLISHED
+     */
+    public void addAuthorityField(AuthorityField afield, AuthorityType type, AuthorityType authoType) {
+        switch (type) {
+            case ESTABLISHED:
+                afield.setAuthorityType(AuthorityType.ESTABLISHED);
+                if (authorized != null) 
+                {
+                    authorized.setAuthorityType(authoType);
+                }
+                addField(0, afield); //
+                authorized = afield;
+                break;
+            case VARIANT:
+                afield.setAuthorityType(AuthorityType.VARIANT);
+                addField(afield); // append
+                break;
+            case RELATED:
+                afield.setAuthorityType(AuthorityType.RELATED);
+                addField(afield);
+                break;
+            case ERROR:
+                afield.setAuthorityType(AuthorityType.ERROR);
+                addField(afield);
+        }
+    }
 
     /**
      * Add a creator form to this Record.

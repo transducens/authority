@@ -8,17 +8,14 @@ package com.cervantesvirtual.MARCauthority.GUI;
 import com.cervantesvirtual.MARCauthority.AuthorityField;
 import com.cervantesvirtual.MARCauthority.AuthorityRecord;
 import com.cervantesvirtual.MARCauthority.AuthorityType;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.HBox;
 
 /**
  * FXML Controller class
@@ -49,7 +46,14 @@ public class AuthorsViewController
     ToggleButton buttonVariant;
     @FXML
     ToggleButton buttonNew;
-    
+    @FXML
+    ToggleGroup typeEstablished;
+    @FXML
+    ToggleButton buttonEstabVariant;
+    @FXML
+    ToggleButton buttonEstabError;
+    @FXML
+    HBox establishedBox;
     
     private MARCAuthorityGUI mainApp = null;
 
@@ -91,6 +95,33 @@ public class AuthorsViewController
         buttonError.setUserData(AuthorityType.ERROR);  
         buttonNew.setUserData("New");
         
+        buttonEstabVariant.setUserData(AuthorityType.VARIANT);
+        buttonEstabError.setUserData(AuthorityType.ERROR);
+        
+        establishedBox.setVisible(false);
+        
+        candidate.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
+        {
+
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue)
+            {
+                if(newValue != null)
+                {
+                    Object type = newValue.getUserData();
+                    
+                    if(type instanceof AuthorityType && ((AuthorityType)type) == AuthorityType.ESTABLISHED)
+                    {
+                        establishedBox.setVisible(true);
+                    }
+                    else
+                    {
+                        establishedBox.setVisible(false);
+                    }
+                }
+            }
+        });
+        
     }
     
     public Object getSelectedToggle()
@@ -103,6 +134,24 @@ public class AuthorsViewController
         {
             return null;
         }
+    }
+
+    public AuthorityType getEstablishedToggle()
+    {
+        if(typeEstablished.getSelectedToggle() != null)
+        {
+            return (AuthorityType) typeEstablished.getSelectedToggle().getUserData();
+        }
+        else
+        {
+            return AuthorityType.VARIANT;
+        }
+    }
+
+    public void setToggleDefault()
+    {
+        candidate.selectToggle(buttonVariant);
+        typeEstablished.selectToggle(buttonEstabVariant);
     }
 
 }
