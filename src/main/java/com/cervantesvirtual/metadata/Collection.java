@@ -126,18 +126,8 @@ public class Collection {
                 NodeList nodes = doc.getElementsByTagName(tag);
                 for (int n = 0; n < nodes.getLength(); ++n) 
                 {
-                    
                     Node node = nodes.item(n);
-                    Record record = new Record(format, node);
-                    
-                    try
-                    {
-                        //TODO esto da error
-                        records.add(new AuthorityRecord(record));
-                    } catch (Exception ex)
-                    {
-                        System.err.println("Error al insertar registro en collection "+ex.toString());
-                    }
+                    records.add(new Record(format, node));
                 }
             } catch (MetadataException e) {
                 System.err.println("Could not read " + doc.getDocumentURI());

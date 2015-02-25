@@ -129,8 +129,11 @@ public class MARCAuthorityGUI extends Application
         builder = new MARCAuthorityBuilder();
 
         //por defecto
-        setAuthoDirIn(new File("C:\\investigacion\\authority exp\\data"));
-        authoOut = new File("C:\\investigacion\\authority exp\\autho.xml");
+        //setAuthoDirIn(new File("C:\\investigacion\\authority exp\\data"));
+        //authoOut = new File("C:\\investigacion\\authority exp\\autho.xml");
+        
+        setAuthoDirIn(new File("/home/aureo/experimentosAuth/data/"));
+        authoOut = new File("/home/aureo/experimentosAuth/autho.xml");
 
     }
 

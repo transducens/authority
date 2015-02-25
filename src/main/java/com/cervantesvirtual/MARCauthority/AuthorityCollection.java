@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * MARC authoritative collection (from MARC bibliographic metadata)
@@ -33,19 +35,38 @@ public class AuthorityCollection extends Collection {
      * Constructor from input file
      * @param filename The containing file
      */
-    public AuthorityCollection(String filename) throws FileNotFoundException, Exception 
+    public AuthorityCollection(String filename) throws FileNotFoundException 
     {
-        //TODO convertir en Authority Records antes de insertar en la Collection
+        
         super(MetadataFormat.MARC, new File(filename));
         index = new MultiHashMap<AuthorityField, AuthorityRecord>();
-        for (Record record : getRecords()) 
-        {   
-            //TODO esto no va
-            AuthorityRecord arecord = (AuthorityRecord) record;
-            for (AuthorityField afield : arecord.getAuthorityFields()) {
-                index.add(afield, arecord);
-            }
+        List<Record> records = getRecords();
+        Collection authoRecords = new Collection(MetadataFormat.MARC);
+        for (Record record : records) 
+        {               
+            AuthorityRecord arecord;
+            try
+            {
+                arecord = new AuthorityRecord(record);
+                
+                //Add to the collection
+                authoRecords.add(arecord);
+                
+                for (AuthorityField afield : arecord.getAuthorityFields()) 
+                {
+                    index.add(afield, arecord);
+                }
+                
+            } catch (Exception ex)
+            {
+                System.err.println("Error al crear authoRecord from record "+ex.toString());
+            }                        
         }
+        
+        //remove old collection and change whith the new one
+        this.records.clear();
+        this.add(authoRecords);
+        
     }
 
     /**
