@@ -1,5 +1,6 @@
 package com.cervantesvirtual.metadata;
 
+import java.text.Normalizer;
 import java.util.List;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -100,9 +101,13 @@ public class MARCDataField implements Field {
      * Constructor from string
      *
      * @param heading the field tag and optional indicators.
-     * @param value the field value
+     * @param nonNormalizedValue the field value
      */
-    public MARCDataField(String heading, String value) {
+    public MARCDataField(String heading, String nonNormalizedValue) 
+    {
+        //Normalize the string        
+        String value = Normalizer.normalize(nonNormalizedValue, Normalizer.Form.NFC);
+        
         tag = heading.substring(0, 3);
         ind1 = (heading.length() > 3) ? heading.charAt(3) : ' ';
         ind2 = (heading.length() > 4) ? heading.charAt(4) : ' ';

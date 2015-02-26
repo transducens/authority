@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -16,44 +17,47 @@
                   <VBox layoutX="5.0" layoutY="5.0" prefHeight="289.0" prefWidth="293.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
                         <Label prefHeight="20.0" prefWidth="281.0" text="Author established:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <GridPane layoutX="3.0" layoutY="25.0" prefHeight="178.0" prefWidth="293.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                        <GridPane layoutX="3.0" layoutY="25.0" prefHeight="119.0" prefWidth="278.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                            <children>
-                              <Label text="Title:">
+                              <Label text="Title:" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Name:" GridPane.rowIndex="1">
+                              <Label text="Name:" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Period:" GridPane.rowIndex="2">
+                              <Label text="Period:" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="establishedTitle" text="Label" wrapText="true" GridPane.columnIndex="1">
+                              <Label fx:id="establishedTitle" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="establishedName" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Label fx:id="establishedName" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="establishedPeriod" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Label fx:id="establishedPeriod" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
+                              <Label text="ID:" />
+                              <Label fx:id="establishedId" text="Label" wrapText="true" GridPane.columnIndex="1" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="55.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="237.0" />
                            </columnConstraints>
                            <rowConstraints>
+                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                               <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                               <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                               <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
@@ -62,6 +66,26 @@
                               <Insets top="10.0" />
                            </VBox.margin>
                         </GridPane>
+                        <TitledPane fx:id="establishedExpandPane" animated="false" prefHeight="72.0" prefWidth="294.0" text="Show original field">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="originalEstablishedText" prefWidth="261.0" text="Label" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
                      </children>
                   </VBox>
                </children>
@@ -71,52 +95,75 @@
                   <VBox layoutX="5.0" layoutY="5.0" prefHeight="289.0" prefWidth="293.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
                         <Label prefHeight="20.0" prefWidth="292.0" text="Author candidate:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <GridPane layoutX="3.0" layoutY="25.0" prefHeight="178.0" prefWidth="293.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                        <GridPane layoutX="3.0" layoutY="25.0" prefHeight="119.0" prefWidth="294.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="55.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="237.0" />
                           </columnConstraints>
                           <rowConstraints>
+                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
                             <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                             <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                             <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                           </rowConstraints>
                            <children>
-                              <Label text="Title:">
+                              <Label text="Title:" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Name:" GridPane.rowIndex="1">
+                              <Label text="Name:" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Period:" GridPane.rowIndex="2">
+                              <Label text="Period:" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="candidateTitle" text="Label" wrapText="true" GridPane.columnIndex="1">
+                              <Label fx:id="candidateTitle" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="candidateName" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Label fx:id="candidateName" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="candidatePeriod" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Label fx:id="candidatePeriod" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
+                              <Label text="ID:" />
+                              <Label fx:id="candidateId" text="Label" wrapText="true" GridPane.columnIndex="1" />
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />
                            </VBox.margin>
                         </GridPane>
+                        <TitledPane fx:id="candidateExpandPane" animated="false" prefHeight="72.0" prefWidth="294.0" text="Show original field">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="originalCandidateText" prefWidth="278.0" text="Label" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                      </content>
+                                    </ScrollPane>
+                                 </children>
+                                 <padding>
+                                    <Insets top="-1.0" />
+                                 </padding>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
                         <VBox>
                            <children>
                               <HBox spacing="5.0">

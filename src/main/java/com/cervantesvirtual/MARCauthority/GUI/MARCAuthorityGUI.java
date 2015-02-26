@@ -16,6 +16,7 @@ import com.cervantesvirtual.metadata.MARCDataField;
 import com.cervantesvirtual.metadata.MetadataFormat;
 import com.cervantesvirtual.metadata.Record;
 import com.cervantesvirtual.xml.DocumentParser;
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXMessageDialog;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -23,14 +24,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -121,16 +128,52 @@ public class MARCAuthorityGUI extends Application
         Node authorView = cargarAuthorsView();
 
         principalController.setCenterPane(authorView);
+        
+        rootStage.setOnCloseRequest(new EventHandler<WindowEvent>()
+        {
+            @Override
+            public void handle(WindowEvent event)
+            {
+                
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Exit Confirmation");
+                alert.setHeaderText(null);
+                alert.setContentText("Do you want to save the changes before exit?");
+
+                ButtonType buttonTypeYes = new ButtonType("Yes");
+                ButtonType buttonTypeNo = new ButtonType("No");                
+                ButtonType buttonTypeCancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+
+                alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo, buttonTypeCancel);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == buttonTypeYes)
+                {
+                    saveAuthority();
+                } 
+                else if (result.get() == buttonTypeNo) 
+                {
+                    //exit withoutsave
+                }  
+                else 
+                {
+                    //cancel exit
+                    event.consume();
+                }
+                
+            }
+        });
 
         //Inicializar
         builder = new MARCAuthorityBuilder();
+        
+        setToggleDefault();
 
         //por defecto
-        //setAuthoDirIn(new File("C:\\investigacion\\authority exp\\data"));
-        //authoOut = new File("C:\\investigacion\\authority exp\\autho.xml");
+        setAuthoDirIn(new File("C:\\investigacion\\authority exp\\data"));
+        authoOut = new File("C:\\investigacion\\authority exp\\autho.xml");
         
-        setAuthoDirIn(new File("/home/aureo/experimentosAuth/data/"));
-        authoOut = new File("/home/aureo/experimentosAuth/autho.xml");
+        //setAuthoDirIn(new File("/home/aureo/experimentosAuth/data/"));
+        //authoOut = new File("/home/aureo/experimentosAuth/autho.xml");
 
     }
 

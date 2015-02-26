@@ -34,16 +34,15 @@ public class AuthorityField extends MARCDataField {
     public String getOriginalDate()
     {
         return originalDate;
-    }
-    
-    
+    }        
     
     /**
      * Identify rotations of the name
      * @param name
      * @return A cyclic array
      */
-    private CyclicArray<String> normalizedVariants(String name) {
+    private CyclicArray<String> normalizedVariants(String name) 
+    {
 //        String[] tokens = normal.split("\\p{Space}+");
         String[] tokens = Normalizer.removeStopwords(name.trim()).split(",");
         for (int n = 0; n < tokens.length; ++n) {

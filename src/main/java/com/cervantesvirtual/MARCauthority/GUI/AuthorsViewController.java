@@ -12,6 +12,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -25,11 +26,15 @@ import javafx.scene.layout.HBox;
 public class AuthorsViewController
 {
     @FXML
+    Label establishedId;
+    @FXML
     Label establishedName;
     @FXML
     Label establishedTitle;
     @FXML
     Label establishedPeriod;
+    @FXML
+    Label candidateId;
     @FXML
     Label candidateName;
     @FXML
@@ -54,23 +59,37 @@ public class AuthorsViewController
     ToggleButton buttonEstabError;
     @FXML
     HBox establishedBox;
+    @FXML
+    Label originalCandidateText;
+    @FXML
+    Label originalEstablishedText;
+    @FXML
+    TitledPane candidateExpandPane;
+    @FXML
+    TitledPane establishedExpandPane;
     
     private MARCAuthorityGUI mainApp = null;
 
     public void setCandidateContent(AuthorityField candidate)
     {
+        candidateId.setText(candidate.getId());
         candidateName.setText(candidate.getName());
         candidateTitle.setText(candidate.getTitle());
         candidatePeriod.setText(candidate.getOriginalDate());
+        
+        originalCandidateText.setText(candidate.getValue());
     }
     
      public void setEstablishedContent(AuthorityRecord established)
     {                
         AuthorityField autorized = established.authorized();
         
+        establishedId.setText(autorized.getId());
         establishedName.setText(autorized.getName());
         establishedTitle.setText(autorized.getTitle());
         establishedPeriod.setText(autorized.getOriginalDate());
+        
+        originalEstablishedText.setText(autorized.getValue());
         
     }
 
@@ -82,13 +101,18 @@ public class AuthorsViewController
     @FXML
     void initialize()
     {
+        candidateId.setText("");
         candidateName.setText("");
         candidateTitle.setText("");
         candidatePeriod.setText("");
         
+        establishedId.setText("");
         establishedName.setText("");
         establishedTitle.setText("");
         establishedPeriod.setText("");
+        
+        originalCandidateText.setText("");
+        originalEstablishedText.setText("");
         
         buttonEstablished.setUserData(AuthorityType.ESTABLISHED);
         buttonVariant.setUserData(AuthorityType.VARIANT);
@@ -152,6 +176,8 @@ public class AuthorsViewController
     {
         candidate.selectToggle(buttonVariant);
         typeEstablished.selectToggle(buttonEstabVariant);
+        candidateExpandPane.setExpanded(false);
+        establishedExpandPane.setExpanded(false);
     }
 
 }
