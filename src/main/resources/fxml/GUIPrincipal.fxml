@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -18,7 +19,8 @@
                         <MenuItem mnemonicParsing="false" onAction="#openAuth" text="Open" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#setAuthDir" text="Set Authority Dir" />
-                        <MenuItem mnemonicParsing="false" onAction="#buttonSave" text="Save" />
+                        <MenuItem fx:id="menuSaveButton" disable="true" mnemonicParsing="false" onAction="#buttonSave" text="Save" />
+                        <MenuItem mnemonicParsing="false" onAction="#buttonSaveAs" text="Save As" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem mnemonicParsing="false" text="Exit" />
                   </items>
@@ -38,4 +40,11 @@
          </children>
       </VBox>
    </top>
+   <bottom>
+      <VBox prefHeight="20.0" prefWidth="600.0" style="-fx-background-color: gainsboro;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="infoText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+         </children>
+      </VBox>
+   </bottom>
 </BorderPane>

@@ -111,11 +111,16 @@ public class MARCAuthorityGUI extends Application
 
     }
 
+    public void setStageTitle(String title)
+    {
+        rootStage.setTitle(title +" :MARC AUTHORITY GUI");
+    }
+    
     @Override
     public void start(Stage primaryStage)
     {
         rootStage = primaryStage;
-        rootStage.setTitle("MARC AUTHORITY GUI");
+        setStageTitle("Untitled");
 
         Scene scene = cargarPrincipal();
         if (scene != null)
@@ -148,7 +153,15 @@ public class MARCAuthorityGUI extends Application
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == buttonTypeYes)
                 {
-                    saveAuthority();
+                    if(authoOut!=null)
+                    {
+                        saveAuthority();
+                    }
+                    else
+                    {
+                        principalController.buttonSaveAs();
+                    }
+                    
                 } 
                 else if (result.get() == buttonTypeNo) 
                 {
@@ -169,8 +182,12 @@ public class MARCAuthorityGUI extends Application
         setToggleDefault();
 
         //por defecto
-        setAuthoDirIn(new File("C:\\investigacion\\authority exp\\data"));
-        authoOut = new File("C:\\investigacion\\authority exp\\autho.xml");
+        //setAuthoDirIn(new File("C:\\investigacion\\authority exp\\data"));
+        //authoOut = new File("C:\\investigacion\\authority exp\\autho.xml");
+        
+        authoOut = null;
+        principalController.setDisableMenuSaveButton(true);
+        principalController.setInfoText("");
         
         //setAuthoDirIn(new File("/home/aureo/experimentosAuth/data/"));
         //authoOut = new File("/home/aureo/experimentosAuth/autho.xml");
@@ -256,6 +273,10 @@ public class MARCAuthorityGUI extends Application
                 }
             }
         }
+        //informar de los registros introducidos
+        int numRecords = builder.toAuthorityCollection().getAuthorityRecords().size();
+        
+        principalController.setInfoText(numRecords + ": Authority Records in the collection");
         
         if (fieldIterator != null && fieldIterator.hasNext())
         {
@@ -287,8 +308,9 @@ public class MARCAuthorityGUI extends Application
             else
             {
                 sigField();
-            }
-        } else
+            }                                
+        } 
+        else
         {
             sigRecord();
         }
@@ -354,6 +376,15 @@ public class MARCAuthorityGUI extends Application
             {
                 System.err.println("Error al abrir fichero "+ex.toString());
             }
+            
+            authoOut = file;
+            principalController.setDisableMenuSaveButton(false);
+            setStageTitle(authoOut.getName());
+            
+            //informar de los registros introducidos
+            int numRecords = builder.toAuthorityCollection().getAuthorityRecords().size();
+
+            principalController.setInfoText(numRecords + ": Authority Records in the collection");
         }
     }
     
@@ -368,6 +399,15 @@ public class MARCAuthorityGUI extends Application
     public void setToggleDefault()
     {
         authorsViewController.setToggleDefault();
+    }
+
+    void saveAs(File selectedFile)
+    {
+        authoOut = selectedFile;
+        setStageTitle(authoOut.getName());
+        principalController.setDisableMenuSaveButton(false);
+        
+        saveAuthority();
     }
 
 }

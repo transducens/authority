@@ -9,7 +9,9 @@ package com.cervantesvirtual.MARCauthority.GUI;
 import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -25,8 +27,23 @@ public class GUIPrincipalController
     @FXML
     BorderPane panelPrincipal;
     
+    @FXML
+    MenuItem menuSaveButton;
+    
+    @FXML
+    Text infoText;
+    
     private MARCAuthorityGUI mainApp = null;
     
+    public void setInfoText(String text)
+    {
+        infoText.setText(text);
+    }
+    
+    public void setDisableMenuSaveButton(boolean disable)
+    {
+        menuSaveButton.setDisable(disable);
+    }
     
     public void setMainApp(MARCAuthorityGUI main)
     {
@@ -62,6 +79,21 @@ public class GUIPrincipalController
     {
         mainApp.saveAuthority();
     }
+    
+    @FXML
+    public void buttonSaveAs() 
+    {
+        final FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save As Authority File");
+        fileChooser.getExtensionFilters().add(new ExtensionFilter("XML Files", "*.xml"));
+        final File selectedFile = fileChooser.showSaveDialog(mainApp.getRootStage());
+        
+        if (selectedFile != null)
+        {
+            mainApp.saveAs(selectedFile);
+        }
+    }
+
     
     @FXML
     private void openAuth()
