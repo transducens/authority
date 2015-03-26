@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -18,7 +19,7 @@
                   <items>
                         <MenuItem mnemonicParsing="false" onAction="#openAuth" text="Open" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" onAction="#setAuthDir" text="Set Authority Dir" />
+                        <MenuItem mnemonicParsing="false" onAction="#setAuthDir" text="Set Biblio Dir" />
                         <MenuItem fx:id="menuSaveButton" disable="true" mnemonicParsing="false" onAction="#buttonSave" text="Save" />
                         <MenuItem mnemonicParsing="false" onAction="#buttonSaveAs" text="Save As" />
                         <SeparatorMenuItem mnemonicParsing="false" />
@@ -43,7 +44,16 @@
    <bottom>
       <VBox prefHeight="20.0" prefWidth="600.0" style="-fx-background-color: gainsboro;" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="infoText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <HBox>
+               <children>
+                  <Text fx:id="infoText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                  <Text fx:id="fileText" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </bottom>

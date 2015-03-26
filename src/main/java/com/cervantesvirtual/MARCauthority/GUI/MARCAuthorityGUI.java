@@ -188,6 +188,7 @@ public class MARCAuthorityGUI extends Application
         authoOut = null;
         principalController.setDisableMenuSaveButton(true);
         principalController.setInfoText("");
+        principalController.setFileText("");
         
         //setAuthoDirIn(new File("/home/aureo/experimentosAuth/data/"));
         //authoOut = new File("/home/aureo/experimentosAuth/autho.xml");
@@ -206,24 +207,24 @@ public class MARCAuthorityGUI extends Application
 
     public void sigFile()
     {
-        if (fileIterator != null && fileIterator.hasNext())
+        //Para evitar desbordamientos de pila por recursividad
+        
+        if(fileIterator != null && fileIterator.hasNext())
         {
+            int totalFiles = listFiles.size();
+            int indexFile = fileIterator.nextIndex();
+            
             Collection bibliographic = new Collection(
                     MetadataFormat.MARC, DocumentParser.parse(fileIterator.next()));
 
             listRecords = bibliographic.getRecords();
             recordIterator = listRecords.listIterator();
 
-            sigRecord();
-        } else
-        {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText("No existen más registros en la carpeta seleccionada");
-
-            alert.showAndWait();
-        }
+            principalController.setFileText(indexFile+1 + " of " + totalFiles +" files procesed" );
+            
+            //sigRecord();
+        }                        
+       
     }
 
     public void sigRecord()
@@ -233,14 +234,70 @@ public class MARCAuthorityGUI extends Application
             listFields = recordIterator.next().getFieldsMatching("[17][01][01]");
             fieldIterator = listFields.listIterator();
 
-            sigField();
-        } else
+            //sigField();
+        } 
+        
+        /*else
         {
             sigFile();
-        }
+        }*/
     }
 
     public void sigField()
+    {                
+        if (fieldIterator != null && fieldIterator.hasNext())
+        {
+            Field field = fieldIterator.next();
+            String tag = "1" + field.getTag().substring(1);
+            MARCDataField marcField = new MARCDataField(tag, field.getValue());
+            candidateField = new AuthorityField(tag, marcField);
+            
+            if(!builder.collectionContains(candidateField))
+            {
+                try
+                {
+                    authorRecord = builder.selectPrincipal(candidateField);
+                } catch (IOException ex)
+                {
+                    System.out.println("Error al seleccionar principal "+ex.toString());
+                }
+                if(authorRecord != null)
+                {
+                    authorsViewController.setCandidateContent(candidateField);
+                    authorsViewController.setEstablishedContent(authorRecord);
+                }
+                else
+                {
+                    builder.addAuthorityRecord(candidateField);
+                    //sigField();
+                }
+            }
+            else
+            {
+                //sigField();
+            }                                
+        } 
+        else
+        {
+            //sigRecord();
+        }
+
+        /*
+         String tag = "1" + field.getTag().substring(1);
+         AuthorityField afield = new AuthorityField(tag, field.getValue());
+         if (!acollection.contains(afield)) //Habria que mirar en la lista?
+         {
+         try {
+         addAuthorityField(afield);
+         } catch (IOException e) {
+         System.err.println(e.getMessage());
+         return;
+         }
+         }
+         */
+    }
+    
+    public void next()
     {
         //insertar la ocurrencia anterior
         if(authorRecord!=null)
@@ -272,62 +329,41 @@ public class MARCAuthorityGUI extends Application
                     authorRecord = null;
                 }
             }
+            authorRecord = null;
         }
-        //informar de los registros introducidos
-        int numRecords = builder.toAuthorityCollection().getAuthorityRecords().size();
         
-        principalController.setInfoText(numRecords + ": Authority Records in the collection");
         
-        if (fieldIterator != null && fieldIterator.hasNext())
+        while(authorRecord == null)
         {
-            Field field = fieldIterator.next();
-            String tag = "1" + field.getTag().substring(1);
-            MARCDataField marcField = new MARCDataField(tag, field.getValue());
-            candidateField = new AuthorityField(tag, marcField);
+            //informar de los registros introducidos
+            int numRecords = builder.toAuthorityCollection().getAuthorityRecords().size();
+
+            principalController.setInfoText(numRecords + ": Authority Records in the collection");
             
-            if(!builder.collectionContains(candidateField))
-            {
-                try
-                {
-                    authorRecord = builder.selectPrincipal(candidateField);
-                } catch (IOException ex)
-                {
-                    System.out.println("Error al seleccionar principal "+ex.toString());
-                }
-                if(authorRecord != null)
-                {
-                    authorsViewController.setCandidateContent(candidateField);
-                    authorsViewController.setEstablishedContent(authorRecord);
-                }
-                else
-                {
-                    builder.addAuthorityRecord(candidateField);
-                    sigField();
-                }
-            }
-            else
+            if (fieldIterator != null && fieldIterator.hasNext())
             {
                 sigField();
-            }                                
-        } 
-        else
-        {
-            sigRecord();
-        }
+            }
+            else if (recordIterator != null && recordIterator.hasNext())
+            {
+                sigRecord();
+            }
+            else if(fileIterator != null && fileIterator.hasNext())
+            {
+                sigFile();
+            }
+            else
+            {                
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Information Dialog");
+                alert.setHeaderText(null);
+                alert.setContentText("No existen más registros en la carpeta seleccionada");
 
-        /*
-         String tag = "1" + field.getTag().substring(1);
-         AuthorityField afield = new AuthorityField(tag, field.getValue());
-         if (!acollection.contains(afield)) //Habria que mirar en la lista?
-         {
-         try {
-         addAuthorityField(afield);
-         } catch (IOException e) {
-         System.err.println(e.getMessage());
-         return;
-         }
-         }
-         */
+                alert.showAndWait();
+                break;
+            } 
+            
+        }
     }
 
     public void setAuthoDirIn(File dir)
@@ -344,7 +380,7 @@ public class MARCAuthorityGUI extends Application
             })));
 
             fileIterator = listFiles.listIterator();
-            
+            principalController.setFileText( 0 + " of " + listFiles.size() +" files procesed" );
         }
     }
 

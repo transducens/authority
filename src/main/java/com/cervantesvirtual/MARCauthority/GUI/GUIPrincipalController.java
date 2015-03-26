@@ -33,11 +33,19 @@ public class GUIPrincipalController
     @FXML
     Text infoText;
     
+    @FXML
+    Text fileText;
+    
     private MARCAuthorityGUI mainApp = null;
     
     public void setInfoText(String text)
     {
         infoText.setText(text);
+    }
+    
+    public void setFileText(String text)
+    {
+        fileText.setText(text);
     }
     
     public void setDisableMenuSaveButton(boolean disable)
@@ -70,7 +78,7 @@ public class GUIPrincipalController
     @FXML
     private void nextField()
     {
-        mainApp.sigField();
+        mainApp.next();
         mainApp.setToggleDefault();
     }
     
