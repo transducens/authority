@@ -114,17 +114,23 @@ public class CreatorSet extends HashSet<Creator> {
             //Messages.info(name);
             for (String alternative : alternatives) {
                 // System.out.println(name + " * " + alternative);
-                for (Creator altcreator : creators.get(alternative)) {
+                for (Creator altcreator : creators.get(alternative)) 
+                {
                     double sim = creator.similarity(altcreator);
-                    if (sim > 0 && sim <= 1.0) {
+                    //The similarity max
+                    if (sim > 0 && sim <= 1.5) {
                         writer.printf("%.2f", sim).println(" | "
                                 + creator + " | " + altcreator);
                     }
+                    
+                    /*
+                    //No tengo en cuenta errores compatibilidad de fechas
                     if (name.equals(altcreator.getFullName())
                             && !creator.compatible(altcreator)) {
                         writer.printf("* %.2f", sim).println(" | "
                                 + creator + " | " + altcreator);
                     }
+                    */
 
                 }
             }

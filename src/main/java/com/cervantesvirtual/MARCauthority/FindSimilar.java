@@ -17,14 +17,44 @@ public class FindSimilar {
         } else {
             // The document with the authority records.
             File infile = new File(args[0]);
-            PrintWriter writer = new PrintWriter(args[1]);
+            //PrintWriter writer = new PrintWriter(args[1]);
             
             // The authority collection
             Collection collection = new Collection(MetadataFormat.MARC, infile);
             
             CreatorSet set = new CreatorSet(collection);
             System.err.println("Analysing " + set.size() + " creators");
-            set.printSimilar(writer);
+            
+            
+            int fechas = 0;
+            int parejas = 0;
+            int compatibles = 0;
+            
+            Creator autors[] = new Creator[set.size()];
+            autors = set.toArray(autors);
+            
+            for (int i = 0; i < autors.length; i++)
+            {
+                Creator aut1 = autors[i];
+                if (!aut1.period.isUndefined())
+                {
+                    fechas++;
+                    for (int j = i + 1; j < autors.length; j++)
+                    {
+                        Creator aut2 = autors[j];
+                        if (!aut2.period.isUndefined())
+                        {
+                            parejas++;
+                            if (aut1.compatible(aut2))
+                                compatibles++;
+                        }
+                    }
+                }
+            }
+            
+            System.err.println("Fechas " + fechas);
+            System.err.println("Parejas " + parejas + "  Compatibles " + compatibles);
+            //set.printSimilar(writer);
         }
     }
 }

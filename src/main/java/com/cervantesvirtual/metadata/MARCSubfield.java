@@ -40,7 +40,8 @@ public class MARCSubfield {
 	public MARCSubfield(org.w3c.dom.Node node) {
 		code = node.getAttributes().getNamedItem("code").getNodeValue()
 				.charAt(0);
-		value = node.getTextContent().trim();
+                //Normalize the value of the subfield
+		value = java.text.Normalizer.normalize(node.getTextContent().trim(), java.text.Normalizer.Form.NFC);
 	}
 
 	/**
