@@ -60,11 +60,17 @@ public class CSVReader extends BufferedReader {
      */
     public String[] getValues() throws IOException {
         String line = super.readLine();
-        String[] tokens = line.split(String.valueOf(delimiter));
-        String[] values = new String[tokens.length];
-        for (int i = 0; i < values.length; i++) {
-            values[i] = trim(tokens[i]);
+        if(line!=null)
+        {
+            String[] tokens = line.split(String.valueOf(delimiter));
+            String[] values = new String[tokens.length];
+            for (int i = 0; i < values.length; i++) {
+                values[i] = trim(tokens[i]);
+            }
+            
+            return values;
         }
-        return values;
+        
+        return null;
     }
 }

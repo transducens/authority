@@ -19,6 +19,7 @@ public class Creator extends MARCDataField {
     CyclicArray<String> variants; // normalized variants of name
     String title; // title or location
     Period period; // the dates with their estimated uncertainty.
+    String rol;
 
     /**
      * Identify rotations of the name
@@ -46,6 +47,7 @@ public class Creator extends MARCDataField {
         super(field);
         StringBuilder builder = new StringBuilder();
 
+        rol="";
         for (MARCSubfield subfield : field.getSubfields()) {
             char code = subfield.getCode();
             if (code == '0') {
@@ -62,6 +64,8 @@ public class Creator extends MARCDataField {
                 if (period == null) {  // if date was unparsable
                     period = new Period();
                 }
+            } else if (code == 'e') {
+                rol = Normalizer.normalize(subfield.getValue());
             }
         }
 
@@ -84,6 +88,7 @@ public class Creator extends MARCDataField {
         this.variants = normalizedVariants(name);
         this.title = "";
         this.period = new Period();
+        this.rol = "";
     }
 
     /**
@@ -93,6 +98,11 @@ public class Creator extends MARCDataField {
         return id;
     }
 
+    public String getRol()
+    {
+        return rol;
+    }
+    
     /**
      * @return The creator's name and title
      */

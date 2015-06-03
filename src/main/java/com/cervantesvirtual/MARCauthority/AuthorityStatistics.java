@@ -23,9 +23,14 @@ import com.cervantesvirtual.metadata.FieldType;
 import com.cervantesvirtual.metadata.MARCDataField;
 import com.cervantesvirtual.metadata.MetadataFormat;
 import com.cervantesvirtual.metadata.Record;
+import com.cervantesvirtual.util.StringFinder;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -47,9 +52,13 @@ public class AuthorityStatistics
             // The authority collection
             Collection collection = new Collection(MetadataFormat.MARC, infile);
 
-            List<Record> records = collection.getRecords();            
+            List<Record> records = collection.getRecords();  
+                        
+            Map<String, Set<Creator>> creators = new HashMap<>();
 
             int allCreators = 0;
+            int identicos = 0;
+            int triviales = 0;
             
             for (Record record : records)
             {
@@ -62,15 +71,44 @@ public class AuthorityStatistics
                         if (tag.matches("[17][01][01]"))
                         {
                             allCreators++;
+                            Creator creator = new Creator(datafield);
+                            String name = creator.getFullName();                            
+
+                            if (creators.containsKey(name)) 
+                            {
+                                boolean content = false;
+                                creators.get(name).add(creator);
+                                for (Creator base : creators.get(name))
+                                {
+                                    if(base.getRol() == creator.getRol())
+                                        content = true;
+                                }
+                                if (content)
+                                    identicos++;
+                                else
+                                    triviales++;
+                            } 
+                            else 
+                            {                                
+                                Set<Creator> set = new HashSet<>();
+                                set.add(creator);
+                                creators.put(name, set);
+                            }                            
                         }
                     }
                 }
-            }
+            }                           
 
             //Number of records
             System.out.println("Number of records " + collection.size());
             //Number of creators
             System.out.println("Number of creators " + allCreators);
+            
+            System.out.println("Number of distinct creators " + creators.size());
+            
+            System.out.println("Number of ident creators " + identicos);
+            
+            System.out.println("Number of trivial ident creators " + triviales);
 
             /*
              CreatorSet set = new CreatorSet(collection);
