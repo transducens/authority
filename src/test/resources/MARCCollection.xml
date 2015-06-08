@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<marc:collection
+xmlns:marc="http://www.loc.gov/MARC21/slim"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.loc.gov/MARC21/slim
+http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+    <marc:record>
+        <marc:leader>00706nam
+            2200193 i 4500
+        </marc:leader>
+        <marc:controlfield
+tag="001">1</marc:controlfield><marc:controlfield
+tag="003">BVMC</marc:controlfield><marc:controlfield
+tag="005">20110208101936.8</marc:controlfield><marc:controlfield
+tag="008">991120s1999 esp s spa d</marc:controlfield>
+        <marc:datafield
+tag="040" ind1=" " ind2=" ">
+            <marc:subfield
+code="a">TDUA</marc:subfield>
+        </marc:datafield>
+        <marc:datafield
+tag="041" ind1=" " ind2=" ">
+            <marc:subfield
+code="a">spa</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="100"
+ind1="1" ind2=" ">
+            <marc:subfield
+code="0">20486</marc:subfield><marc:subfield code="a">Guevara, Antonio
+                de
+            </marc:subfield>
+            <marc:subfield
+code="d">(ca. 1480-1545)</marc:subfield>
+        </marc:datafield>
+        <marc:datafield
+tag="245" ind1="0" ind2="0">
+            <marc:subfield code="a">Menosprecio de
+                corte y alabanza de aldea
+            </marc:subfield>
+            <marc:subfield
+code="c">Antonio de
+                Guevara
+            </marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="260"
+ind1=" " ind2=" ">
+            <marc:subfield code="a">Alicante
+                :
+            </marc:subfield>
+            <marc:subfield code="b">Biblioteca Virtual Miguel de
+                Cervantes,
+            </marc:subfield>
+            <marc:subfield
+code="c">1999</marc:subfield>
+        </marc:datafield>
+        <marc:datafield
+tag="534" ind1=" " ind2=" ">
+            <marc:subfield code="p">Edición digital
+                basada en la de
+            </marc:subfield>
+            <marc:subfield code="c">Valladolid,
+                Juan de Villaquerán,
+                1539
+            </marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="540" ind1="
+" ind2=" ">
+            <marc:subfield
+code="a">oculto</marc:subfield>
+        </marc:datafield>
+        <marc:datafield
+tag="650" ind1="0" ind2="4">
+            <marc:subfield
+code="0">650_31</marc:subfield><marc:subfield code="a">Literatura
+                española
+            </marc:subfield>
+            <marc:subfield code="y">Siglo
+                16ð
+            </marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="856" ind1="4"
+ind2="1">
+            <marc:subfield
+code="u">http://www.cervantesvirtual.com/servlet/SirveObras/01471730877925940876602/index.htm</marc:subfield>
+        </marc:datafield>
+        <marc:datafield
+tag="901" ind1=" " ind2=" ">
+            <marc:subfield
+code="a">sourceTypeOriginal_L</marc:subfield><marc:subfield
+code="b">xmlFull</marc:subfield>
+        </marc:datafield>
+    </marc:record>
+    
+    <marc:record>
+        <marc:leader>00816nam  2200217 i 4500</marc:leader><marc:controlfield tag="001">6</marc:controlfield><marc:controlfield tag="003">BVMC</marc:controlfield><marc:controlfield tag="005">20110214124607.6</marc:controlfield><marc:controlfield tag="008">991120s1999    esp     s           spa d</marc:controlfield>
+        <marc:datafield tag="040" ind1=" " ind2=" ">
+            <marc:subfield code="a">TDUA</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="041" ind1=" " ind2=" ">
+            <marc:subfield code="a">spa</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="080" ind1=" " ind2=" ">
+            <marc:subfield code="a">821.134.2-4&amp;quot;18&amp;quot;</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="100" ind1="1" ind2=" ">
+            <marc:subfield code="0">23</marc:subfield><marc:subfield code="a">Ganivet, Ángel</marc:subfield><marc:subfield code="d">1865-1898</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="245" ind1="0" ind2="0">
+            <marc:subfield code="a">Cartas finlandesas ; Hombres del Norte</marc:subfield><marc:subfield code="c">Ángel Ganivet</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="260" ind1=" " ind2=" ">
+            <marc:subfield code="a">Alicante :</marc:subfield><marc:subfield code="b">Biblioteca Virtual Miguel de Cervantes,</marc:subfield><marc:subfield code="c">1999</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="534" ind1=" " ind2=" ">
+            <marc:subfield code="p">Edición digital basada en la de</marc:subfield><marc:subfield code="c">Granada, Tip. Vda. e Hijos de Sabatel, 1898.</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="540" ind1=" " ind2=" ">
+            <marc:subfield code="a">abierto</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="650" ind1="0" ind2="4">
+            <marc:subfield code="0">650_0</marc:subfield><marc:subfield code="a">Novela chilena</marc:subfield><marc:subfield code="y">Siglo 19ð</marc:subfield><marc:subfield code="x">Historia y crítica</marc:subfield><marc:subfield code="y">Siglo 19ð</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="651" ind1="0" ind2="4">
+            <marc:subfield code="0">651_694</marc:subfield><marc:subfield code="a">Finlandia</marc:subfield><marc:subfield code="x">Usos y costumbres</marc:subfield><marc:subfield code="y">Siglo 19ð</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="856" ind1="4" ind2="1">
+            <marc:subfield code="u">http://www.cervantesvirtual.com/servlet/SirveObras/12471636433476051876657/index.htm</marc:subfield>
+        </marc:datafield>
+        <marc:datafield tag="901" ind1=" " ind2=" ">
+            <marc:subfield code="a">sourceTypeOriginal_L</marc:subfield><marc:subfield code="b">xmlFull</marc:subfield>
+        </marc:datafield>
+    </marc:record>
+</marc:collection>

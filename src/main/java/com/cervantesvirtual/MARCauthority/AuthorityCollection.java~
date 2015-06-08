@@ -1,0 +1,131 @@
+package com.cervantesvirtual.metadata.marc;
+
+import java.io.File;
+
+import com.cervantesvirtual.metadata.Collection;
+import com.cervantesvirtual.metadata.MetadataFormat;
+import com.cervantesvirtual.metadata.Record;
+import com.cervantesvirtual.metadata.util.DocumentParser;
+import com.cervantesvirtual.metadata.util.MultiHashMap;
+
+public class AuthorityCollection extends Collection {
+	MultiHashMap<Integer, AuthorityRecord> index; // fast access to records
+	CreatorSet creators; // all forms of the creators.
+
+	/**
+	 * Default constructor.
+	 */
+	public AuthorityCollection() {
+		super(MetadataFormat.MARC);
+		index = new MultiHashMap<Integer, AuthorityRecord>();
+		creators = new CreatorSet();
+	}
+
+	/**
+	 * Build the authoritative collection from a bibliographic collection.
+	 * 
+	 * @return The collection with creator records.
+	 */
+	public AuthorityCollection(Collection collection) {
+		super(MetadataFormat.MARC);
+		index = new MultiHashMap<Integer, AuthorityRecord>();
+		creators = new CreatorSet();//collection);
+		addCreators(collection);
+	}
+
+	/**
+	 * Add the creators in a bibliographic record to the authoritative
+	 * collection of creators.
+	 * 
+	 * @param record
+	 *            A MARC bibliographic record.
+	 */
+	private void addCreators(Record bibrecord) {
+		// creators.addAll(set);
+		for (Creator creator : new CreatorSet(bibrecord)) {
+			System.out.println(creator+" "+creators.contains(creator));
+			if (creators.add(creator)) {
+				boolean added = false; // true if compatible record exists.
+				int code = creator.nameHashCode();
+				System.out.println(creator + ":" + code);
+				if (index.containsKey(code)) {
+					for (Record record : index.get(code)) {
+						AuthorityRecord arecord = (AuthorityRecord) record;
+						if (arecord.compatible(creator)) {
+							arecord.add(creator, true);
+							added = true;
+							break;
+						}
+					}
+
+				}
+				// If not added to an old record, create new one.
+				if (!added) {
+					AuthorityRecord arecord = new AuthorityRecord(
+							creator.getId());
+					arecord.add(creator, true);
+					add(arecord);
+					index.add(creator.nameHashCode(), arecord);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Add a bibliographic collection to the authoritative collection of
+	 * creators.
+	 * 
+	 * @param collection
+	 */
+	public void addCreators(Collection bibcollection) {
+		for (Record bibrecord : bibcollection.getRecords()) {
+			addCreators(bibrecord);
+	System.err.println(creators);
+		}
+	}
+
+	public static void main(String[] args) throws java.io.IOException {
+		if (args.length < 1) {
+			System.err.println("Usage: AuthorityCollection [-f] files");
+		} else {
+			boolean filter = false;
+			AuthorityCollection authority = new AuthorityCollection();
+
+			for (String arg : args) {
+				if (arg.equals("-f")) {
+					filter = true;
+				} else {
+					File dir = new File(arg);
+					if (dir.isDirectory()) {
+						for (File file : dir.listFiles()) {
+							if (file.getName().endsWith(".xml")) {
+								Collection bibliographic = new Collection(
+										MetadataFormat.MARC,
+										DocumentParser.parse(file));
+								authority.addCreators(bibliographic);
+							}
+						}
+					} else {
+						Collection bibliographic = new Collection(
+								MetadataFormat.MARC, DocumentParser.parse(dir));
+						authority.addCreators(bibliographic);
+					}
+				}
+			}
+			if (filter) {
+				String tag = MetadataFormat.MARC.getCollectionTag();
+				String att = MetadataFormat.MARC.getNamespaceDeclarations();
+				System.out.println("<" + tag + " " + att + ">");
+				for (Record record : authority.getRecords()) {
+					if (record.getFields().size() > 2) { // more than 001 and
+															// 100
+						System.out.println(record.toXML());
+					}
+				}
+				System.out.println("</" + tag + ">");
+			} else {
+				authority.writeXML(System.out);
+			}
+		}
+	}
+}

@@ -1,0 +1,24 @@
+package com.cervantesvirtual.metadata.marc;
+
+import com.cervantesvirtual.metadata.Collection;
+import com.cervantesvirtual.metadata.MetadataFormat;
+
+/**
+ * Control of authorities: find occurrences of similar creators.
+ */
+public class FindSimilar {
+	public static void main(String[] args) throws java.io.IOException {
+		if (args.length != 1) {
+			System.err.println("Usage FindSimilar collection.xml");
+		} else {
+			// The document with the authority records.
+			java.io.File file = new java.io.File(args[0]);
+			org.w3c.dom.Document doc = com.cervantesvirtual.metadata.util.DocumentParser
+					.parse(file);
+			// The authority collection
+			Collection collection = new Collection(MetadataFormat.MARC, doc);
+			CreatorSet set = new CreatorSet(collection);
+			set.findSimilar();
+		}
+	}
+}
