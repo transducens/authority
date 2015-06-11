@@ -20,10 +20,9 @@ package com.cervantesvirtual.storage;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeMap;
-import java.util.Collections;
 
 /**
- * Signature is a list of tags (sorted in reverse order
+ * Signature is a list of tags 
  */
 class Signature extends ArrayList<Tag> implements Comparable<Signature> {
 
@@ -37,7 +36,7 @@ class Signature extends ArrayList<Tag> implements Comparable<Signature> {
 
     public Signature(String word) {
         TreeMap<Character, Integer> counter
-                = new TreeMap<>(Collections.reverseOrder());
+                = new TreeMap<>();//Collections.reverseOrder());
 
         for (Character c : word.toCharArray()) {
             if (counter.containsKey(c)) {
@@ -109,6 +108,39 @@ class Signature extends ArrayList<Tag> implements Comparable<Signature> {
             res.add(get(pos++));
         }
         return res;
+    }
+
+    /**
+     * Compute the number of differences
+     *
+     * @param other
+     */
+    public Pair<Integer, Integer> delta(Signature other) {
+        int n1 = 0;
+        int n2 = 0;
+        Pair<Integer, Integer> pair = new Pair<>();
+
+        while (n1 < this.size() || n2 < other.size()) {
+            Tag tag1 = this.get(n1);
+            Tag tag2 = other.get(n2);
+            if (tag1.c < tag2.c) {
+                pair.first += tag1.n;
+                ++n1;
+            } else if (tag1.c == tag2.c) {
+                int delta = tag1.n - tag2.n;
+                if (delta >= 0) {
+                    pair.first += delta;
+                } else {
+                    pair.second -= delta;
+                }
+                ++n1;
+                ++n2;
+            } else {
+                pair.second += tag2.n;
+                ++n2;
+            }
+        }
+        return pair;
     }
 
     // Comparability functions

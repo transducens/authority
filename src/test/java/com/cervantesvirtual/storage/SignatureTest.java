@@ -33,8 +33,8 @@ public class SignatureTest extends TestCase {
      */
     public void testIsPrefix() {
         System.out.println("isPrefix");
-        Signature instance = new Signature("bbccc");
-        Signature other = new Signature("bbccca");
+        Signature instance = new Signature("bbaaa");
+        Signature other = new Signature("cbbaaa");
         boolean expResult = true;
         assert (instance.isPrefix(other));
     }
@@ -44,9 +44,9 @@ public class SignatureTest extends TestCase {
      */
     public void testLcp() {
         System.out.println("lcp");
-        Signature instance = new Signature("abbccc");
-        Signature other = new Signature("aabbccc");
-        Signature expResult = new Signature("bbccc");
+        Signature instance = new Signature("cbbaaa");
+        Signature other = new Signature("bbaaa");
+        Signature expResult = new Signature("aaabb");
         Signature result = instance.lcp(other);
         assertEquals(expResult, result);
     }

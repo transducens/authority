@@ -34,6 +34,7 @@ public class RadixTreeTest extends TestCase {
 
         assert (tree.contains("rosa"));
         assert (tree.contains("soar"));
+        assert (!tree.contains("saro"));
         assert (tree.contains("morse"));
         assert (!tree.contains("eros"));
     }
@@ -43,19 +44,17 @@ public class RadixTreeTest extends TestCase {
      */
     public void testSearch() {
         System.out.println("search");
-        
+
         Set<String> expectedResult = new TreeSet<>();
 
         Set<String> result;
-        
-        /**
-           
-         result = tree.afind("rosa", 0.0);
+
+        result = tree.afind("rosa", 0.0);
         expectedResult.add("rosa");
         expectedResult.add("soar");
 
         assert (result.equals(expectedResult));
-
+/*
         result = tree.afind("rosa", 1.0);
         System.out.println(result);
         expectedResult.add("rose");

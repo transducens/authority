@@ -204,7 +204,7 @@ class RadixTree {
             int incm = 0;
             int pos = 0;
             for (Tag tag : key) {
-                while (s.get(pos).c > tag.c) {
+                while (s.get(pos).c < tag.c) {  // char in signature precedes tag
                     incp += s.get(pos).n;
                     ++pos;
                 }
