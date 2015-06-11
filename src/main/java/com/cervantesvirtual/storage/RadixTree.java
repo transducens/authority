@@ -204,7 +204,7 @@ class RadixTree {
             int incm = 0;
             int pos = 0;
             for (Tag tag : key) {
-                while (s.get(pos).c < tag.c) {  // char in signature precedes tag
+                while (pos < s.size() && s.get(pos).c < tag.c) {  // char in signature precedes tag
                     incp += s.get(pos).n;
                     ++pos;
                 }
@@ -230,7 +230,7 @@ class RadixTree {
     }
 
     public Set<String> afind(String word, double dmax) {
-        Signature sig = new Signature(word);
+        Signature sig = new Signature(word);  // MUST REMOVE those above dmax
         return afind(sig, 0, 0, dmax);
     }
 
