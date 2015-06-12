@@ -1,5 +1,8 @@
 package com.cervantesvirtual.dates;
 
+import com.cervantesvirtual.dates.DateParser;
+import com.cervantesvirtual.dates.DateType;
+import com.cervantesvirtual.dates.Period;
 import junit.framework.TestCase;
 
 public class DateParserTest extends TestCase {
