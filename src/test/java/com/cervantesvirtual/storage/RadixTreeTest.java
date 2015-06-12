@@ -49,23 +49,22 @@ public class RadixTreeTest extends TestCase {
 
         Set<String> result;
 
-        //result = tree.afind("rosa", 0.0);
+        result = tree.afind("rosa", 0.0);
         expectedResult.add("rosa");
         expectedResult.add("soar");
+        assert (result.equals(expectedResult));
 
-        /*        
-         assert (result.equals(expectedResult));
-         result = tree.afind("rosa", 1.0);
-         System.out.println(result);
-         expectedResult.add("rose");
-         expectedResult.add("mars");
-         assert (result.equals(expectedResult));
-         /*
+        result = tree.afind("rosa", 1.0);
+
+        System.out.println(result + " <-> " + expectedResult);
+        assert (result.equals(expectedResult));
+        
          result = tree.afind("rosa", 2.0);
          System.out.println(result);
-         expectedResult.add("morse");
+         expectedResult.add("mars");
+         expectedResult.add("warsow");
          assert (result.equals(expectedResult));
-         */
+         
     }
 
 }

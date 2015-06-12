@@ -189,27 +189,30 @@ class RadixTree {
         Set<String> res = new TreeSet<>();
         double w = 2.0; // TO BE REDEFINED LATER
         //double low = lambda(deltap, deltam, w);
-        /*
-         System.out.println("Visited " + words + " looking for " + s);
-         System.out.println(deltap + "+" + deltam + "+" + s.wordlength() + 
-         "=" + lambda(deltap + s.wordlength(), deltam, w));
-         */
+
+        System.out.println("Visited " + words + " looking for " + s);
+        System.out.println(deltap + "+" + deltam + "+" + s.wordLength()
+                + "=" + lambda(deltap + s.wordLength(), deltam, w));
+
         if (lambda(deltap + s.wordLength(), deltam, w) <= dmax) {
             System.out.println("Added " + words + " in " + this.xray());
-            System.out.println(deltap+" "+s+" "+deltam+" "+dmax);
+            System.out.println(deltap + " " + s + " " + deltam + " " + dmax);
             res.addAll(words);
         }
-        for (Signature key : children.keySet()) {  // it can be accelerated since sorted
+        for (Signature key : children.keySet()) {  
             int incp = 0;
             int incm = 0;
             int pos = 0;
             for (Tag tag : key) {
+                // first update postion (signature must not precede tag)
                 while (pos < s.size() && s.get(pos).c < tag.c) {  // char in signature precedes tag
                     incp += s.get(pos).n;
                     ++pos;
                 }
-
-                if (s.get(pos).c == tag.c) {
+                // two cases: 1) tag is not in s; 2) tag is in s
+                if (pos == s.size() || s.get(pos).c != tag.c ) {
+                    incm += tag.n;
+                } else {
                     int delta = s.get(pos).n - tag.n;
                     if (delta > 0) {
                         incp += delta;
