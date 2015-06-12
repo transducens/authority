@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * MARC authoritative collection (from MARC bibliographic metadata)
@@ -19,7 +17,8 @@ import java.util.logging.Logger;
  * as a related entry (sea also tracing)  
  * @author RCC
  */
-public class AuthorityCollection extends Collection {
+public class AuthorityCollection extends Collection 
+{
 
     MultiHashMap<AuthorityField, AuthorityRecord> index; // Fast access to records
 
