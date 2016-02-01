@@ -118,22 +118,13 @@ public class MARCAuthorityBuilder {
         acollection.addFieldToRecord(afield, atype, authoType, arecord);
     }
 
-    public AuthorityRecord selectPrincipal(AuthorityField afield) throws IOException
+    public List<AuthorityRecord> selectPrincipal(AuthorityField afield) throws IOException
     {
         List<AuthorityRecord> candidates = findSimilarRecords(afield);
         AuthorityRecord arecord;
         if (candidates.size() > 0) 
         {
-            List<AuthorityRecord> compatible = filterCompatible(candidates, afield);
-            if (compatible.size() == 1) 
-            {
-                arecord = compatible.get(0);               
-            } else 
-            {
-                arecord = selectMostSimilar(afield, candidates);                
-            }
-            
-            return arecord;
+            return candidates;
             
         } else 
         {   //no candidates, new record  

@@ -8,15 +8,24 @@ package com.cervantesvirtual.MARCauthority.GUI;
 import com.cervantesvirtual.MARCauthority.AuthorityField;
 import com.cervantesvirtual.MARCauthority.AuthorityRecord;
 import com.cervantesvirtual.MARCauthority.AuthorityType;
+import java.io.IOException;
+import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -26,15 +35,7 @@ import javafx.scene.layout.HBox;
 public class AuthorsViewController
 {
     @FXML
-    Label establishedId;
-    @FXML
-    Label establishedName;
-    @FXML
-    Label establishedTitle;
-    @FXML
-    Label establishedPeriod;
-    @FXML
-    Label candidateId;
+    Label candidateRol;
     @FXML
     Label candidateName;
     @FXML
@@ -62,17 +63,15 @@ public class AuthorsViewController
     @FXML
     Label originalCandidateText;
     @FXML
-    Label originalEstablishedText;
-    @FXML
     TitledPane candidateExpandPane;
     @FXML
-    TitledPane establishedExpandPane;
+    ListView establishedAuthorsList;
     
     private MARCAuthorityGUI mainApp = null;
 
     public void setCandidateContent(AuthorityField candidate)
     {
-        candidateId.setText(candidate.getId());
+        candidateRol.setText(candidate.getRol());
         candidateName.setText(candidate.getName());
         candidateTitle.setText(candidate.getTitle());
         candidatePeriod.setText(candidate.getOriginalDate());
@@ -80,17 +79,66 @@ public class AuthorsViewController
         originalCandidateText.setText(candidate.getValue());
     }
     
-     public void setEstablishedContent(AuthorityRecord established)
-    {                
-        AuthorityField autorized = established.authorized();
+    public void setAuthorListContent(List<AuthorityRecord> authors)
+    {
+        ObservableList<AuthorityRecord> myObservableList = FXCollections.observableList(authors);
+        establishedAuthorsList.setItems(myObservableList);
+         
+        establishedAuthorsList.setCellFactory(new Callback<ListView<AuthorityRecord>, ListCell<AuthorityRecord>>(){
+ 
+            @Override
+            public ListCell<AuthorityRecord> call(ListView<AuthorityRecord> p) {
+                 
+                ListCell<AuthorityRecord> cell = new ListCell<AuthorityRecord>(){
+ 
+                    @Override
+                    protected void updateItem(AuthorityRecord t, boolean bln) 
+                    {
+                        super.updateItem(t, bln);
+                        if (t != null) 
+                        {
+                            AuthorCellController cell = loadCell().getController();
+                            cell.setEstablishedContent(t);
+                            setGraphic(cell.getVBox());
+                        }
+                    }
+ 
+                };
+                 
+                return cell;
+            }
+        });
+    }
+    
+    public AuthorityRecord getSelectedEstablished()
+    {
+        if (establishedAuthorsList.getSelectionModel().isEmpty())
+        {
+            return (AuthorityRecord) establishedAuthorsList.getItems().get(0);
+        }
+        else
+        {
+            return (AuthorityRecord) establishedAuthorsList.getSelectionModel().getSelectedItem();
+        }
         
-        establishedId.setText(autorized.getId());
-        establishedName.setText(autorized.getName());
-        establishedTitle.setText(autorized.getTitle());
-        establishedPeriod.setText(autorized.getOriginalDate());
+    }
+    
+    public FXMLLoader loadCell()
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("/fxml/AuthorCell.fxml"));
         
-        originalEstablishedText.setText(autorized.getValue());
+        try
+        {
+            loader.load();
+            
+        } catch (IOException ex)
+        {            
+            System.err.println("No se encuentra el fxml indicado");
+            System.err.println(ex.toString());
+        }
         
+        return loader;
     }
 
     public void setMainApp(MARCAuthorityGUI main)
@@ -101,18 +149,12 @@ public class AuthorsViewController
     @FXML
     void initialize()
     {
-        candidateId.setText("");
+        candidateRol.setText("");
         candidateName.setText("");
         candidateTitle.setText("");
         candidatePeriod.setText("");
         
-        establishedId.setText("");
-        establishedName.setText("");
-        establishedTitle.setText("");
-        establishedPeriod.setText("");
-        
         originalCandidateText.setText("");
-        originalEstablishedText.setText("");
         
         buttonEstablished.setUserData(AuthorityType.ESTABLISHED);
         buttonVariant.setUserData(AuthorityType.VARIANT);
@@ -177,7 +219,6 @@ public class AuthorsViewController
         candidate.selectToggle(buttonVariant);
         typeEstablished.selectToggle(buttonEstabVariant);
         candidateExpandPane.setExpanded(false);
-        establishedExpandPane.setExpanded(false);
     }
 
 }

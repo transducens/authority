@@ -58,6 +58,7 @@ public class MARCAuthorityGUI extends Application
     private MARCAuthorityBuilder builder = null;
     private AuthorityField candidateField = null;
     private AuthorityRecord authorRecord = null;
+    private List<AuthorityRecord> establishedList = null;
 
     GUIPrincipalController principalController;
     AuthorsViewController authorsViewController;
@@ -256,15 +257,18 @@ public class MARCAuthorityGUI extends Application
             {
                 try
                 {
-                    authorRecord = builder.selectPrincipal(candidateField);
+                    establishedList = builder.selectPrincipal(candidateField);
+                    
+                    
                 } catch (IOException ex)
                 {
                     System.out.println("Error al seleccionar principal "+ex.toString());
                 }
-                if(authorRecord != null)
+                
+                if(establishedList != null)
                 {
                     authorsViewController.setCandidateContent(candidateField);
-                    authorsViewController.setEstablishedContent(authorRecord);
+                    authorsViewController.setAuthorListContent(establishedList);
                 }
                 else
                 {
@@ -300,8 +304,9 @@ public class MARCAuthorityGUI extends Application
     public void next()
     {
         //insertar la ocurrencia anterior
-        if(authorRecord!=null)
+        if(establishedList!=null)
         {
+            authorRecord = authorsViewController.getSelectedEstablished();
             //insertar como variante o error, o saltar si no seleccionado             
             Object type = authorsViewController.getSelectedToggle();
             if(type != null)
@@ -315,25 +320,29 @@ public class MARCAuthorityGUI extends Application
                         
                         builder.addFieldToRecord(candidateField, atype, authoType, authorRecord);
                         authorRecord = null;
+                        establishedList = null;
                         
                     }
                     else
                     {                        
                         builder.addFieldToRecord(candidateField, atype, authorRecord);
                         authorRecord = null;
+                        establishedList = null;
                     }
                 }
                 else if( ((String)type).equals("New") )
                 {
                     builder.addAuthorityRecord(candidateField, "2", "");
                     authorRecord = null;
+                    establishedList = null;
                 }
             }
             authorRecord = null;
+            establishedList = null;
         }
         
         
-        while(authorRecord == null)
+        while(establishedList == null)
         {
             //informar de los registros introducidos
             int numRecords = builder.toAuthorityCollection().getAuthorityRecords().size();

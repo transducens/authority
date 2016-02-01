@@ -20,6 +20,7 @@ public class AuthorityField extends MARCDataField {
     String title; // title or location
     Period period; // the dates with their estimated uncertainty.
     String originalDate; //the original date value
+    String rol;
 
     public String getName()
     {
@@ -34,7 +35,12 @@ public class AuthorityField extends MARCDataField {
     public String getOriginalDate()
     {
         return originalDate;
-    }        
+    }
+    
+    public String getRol()
+    {
+        return rol;
+    }
     
     /**
      * Identify rotations of the name
@@ -57,23 +63,31 @@ public class AuthorityField extends MARCDataField {
     private void parse() {
         StringBuilder builder = new StringBuilder();
 
-        for (MARCSubfield subfield : getSubfields()) {
+        for (MARCSubfield subfield : getSubfields()) 
+        {
             char code = subfield.getCode();
-            if (code == '0') {
+            if (code == '0') 
+            {
                 id = subfield.getValue();
-            } else if (code == 'a' || code == 'b') {
+            } 
+            else if (code == 'a' || code == 'b') {
                 if (builder.length() > 0) {
                     builder.append(' ');
                 }
                 builder.append(subfield.getValue());
             } else if (code == 'c') {
                 title = Normalizer.normalize(subfield.getValue());
-            } else if (code == 'd') {
+            } else if (code == 'd') 
+            {
                 originalDate = subfield.getValue();
                 period = DateParser.parse(subfield.getValue());
                 if (period == null) {  // if date was unparsable
                     period = new Period();
                 }
+            }
+            else if (code == 'e')
+            {
+                rol = Normalizer.normalize(subfield.getValue());
             }
 
             name = builder.toString();

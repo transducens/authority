@@ -1,59 +1,21 @@
-<<<<<<< OURS
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.cervantesvirtual.MARCauthority.GUI.AuthorsViewController">
-   <children>
-      <SplitPane dividerPositions="0.4882943143812709" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <items>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TableView layoutX="45.0" layoutY="49.0" prefHeight="298.0" prefWidth="289.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <TableView layoutX="62.0" layoutY="49.0" prefHeight="298.0" prefWidth="303.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </AnchorPane>
-         </items>
-      </SplitPane>
-   </children>
-</AnchorPane>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.text.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cervantesvirtual.MARCauthority.GUI.AuthorsViewController">
+<AnchorPane id="AnchorPane" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cervantesvirtual.MARCauthority.GUI.AuthorsViewController">
    <children>
       <SplitPane dividerPositions="0.4866220735785953" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -61,76 +23,8 @@
                <children>
                   <VBox layoutX="5.0" layoutY="5.0" prefHeight="289.0" prefWidth="293.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="281.0" text="Author established:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <GridPane layoutX="3.0" layoutY="25.0" prefHeight="119.0" prefWidth="278.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                           <children>
-                              <Label text="Title:" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Name:" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="Period:" GridPane.rowIndex="3">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label fx:id="establishedTitle" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label fx:id="establishedName" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label fx:id="establishedPeriod" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </Label>
-                              <Label text="ID:" />
-                              <Label fx:id="establishedId" text="Label" wrapText="true" GridPane.columnIndex="1" />
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="55.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="237.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                              <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
-                              <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
-                              <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
-                           </rowConstraints>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </GridPane>
-                        <TitledPane fx:id="establishedExpandPane" animated="false" prefHeight="72.0" prefWidth="294.0" text="Show original field">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                                             <children>
-                                                <Label fx:id="originalEstablishedText" prefWidth="261.0" text="Label" wrapText="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </ScrollPane>
-                                 </children>
-                                 <padding>
-                                    <Insets top="-1.0" />
-                                 </padding>
-                              </AnchorPane>
-                           </content>
-                        </TitledPane>
+                        <Label prefHeight="20.0" prefWidth="281.0" text="Authors established:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <ListView fx:id="establishedAuthorsList" prefWidth="278.0" />
                      </children>
                   </VBox>
                </children>
@@ -146,44 +40,44 @@
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="258.0" minWidth="10.0" prefWidth="237.0" />
                           </columnConstraints>
                           <rowConstraints>
+                            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
+                            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
+                            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                               <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
-                            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
-                            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
-                            <RowConstraints maxHeight="1.7976931348623157E308" vgrow="NEVER" />
                           </rowConstraints>
                            <children>
-                              <Label text="Title:" GridPane.rowIndex="1">
+                              <Label text="Title:">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Name:" GridPane.rowIndex="2">
+                              <Label text="Name:" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Period:" GridPane.rowIndex="3">
+                              <Label text="Period:" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="candidateTitle" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Label fx:id="candidateTitle" text="Label" wrapText="true" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="candidateName" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Label fx:id="candidateName" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label fx:id="candidatePeriod" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Label fx:id="candidatePeriod" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <GridPane.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="ID:" />
-                              <Label fx:id="candidateId" text="Label" wrapText="true" GridPane.columnIndex="1" />
+                              <Label text="Rol:" GridPane.rowIndex="3" />
+                              <Label fx:id="candidateRol" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                            <VBox.margin>
                               <Insets top="10.0" />
@@ -255,4 +149,3 @@
       </SplitPane>
    </children>
 </AnchorPane>
->>>>>>> THEIRS
