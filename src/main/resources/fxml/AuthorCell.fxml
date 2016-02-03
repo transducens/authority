@@ -46,7 +46,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Rol:" GridPane.rowIndex="3" />
+                  <Label text="Role:" GridPane.rowIndex="3" />
                   <Label fx:id="establishedRol" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
                <columnConstraints>

@@ -23,7 +23,7 @@
                <children>
                   <VBox layoutX="5.0" layoutY="5.0" prefHeight="289.0" prefWidth="293.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="281.0" text="Authors established:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <Label prefHeight="20.0" prefWidth="281.0" text="Similar Records:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                         <ListView fx:id="establishedAuthorsList" prefWidth="278.0" />
                      </children>
                   </VBox>
@@ -33,7 +33,7 @@
                <children>
                   <VBox layoutX="5.0" layoutY="5.0" prefHeight="289.0" prefWidth="293.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="292.0" text="Author candidate:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <Label prefHeight="20.0" prefWidth="292.0" text="Author:" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
                         <GridPane layoutX="3.0" layoutY="25.0" prefHeight="119.0" prefWidth="294.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="55.0" />
@@ -76,7 +76,7 @@
                                     <Insets bottom="5.0" top="5.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label text="Rol:" GridPane.rowIndex="3" />
+                              <Label text="Role:" GridPane.rowIndex="3" />
                               <Label fx:id="candidateRol" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                            <VBox.margin>
@@ -115,7 +115,7 @@
                                           <ToggleGroup fx:id="candidate" />
                                        </toggleGroup>
                                     </ToggleButton>
-                                    <ToggleButton fx:id="buttonVariant" mnemonicParsing="false" selected="true" text="Variant" toggleGroup="$candidate" />
+                                    <ToggleButton fx:id="buttonVariant" mnemonicParsing="false" text="Variant" toggleGroup="$candidate" />
                                     <ToggleButton fx:id="buttonError" mnemonicParsing="false" text="Error" toggleGroup="$candidate" />
                                     <ToggleButton fx:id="buttonNew" mnemonicParsing="false" text="New" toggleGroup="$candidate" />
                                  </children>
