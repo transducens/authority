@@ -8,3 +8,5 @@ The tool is based on a procedure which employs a similarity measure between auth
 complemented with a parser which interprets the dates associated with the creator.
 
 The application of these techniques has enhanced the productivity of the cataloguing staff.
+
+For execute the GUI use: java -cp authority-jar-with-dependencies.jar com.cervantesvirtual.MARCauthority.GUI.MARCAuthorityGUI
